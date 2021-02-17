@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ReaderTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-02-17T20:16:14" hostname="heiter-VivoBook-15-ASUS-Laptop-X542UF" time="0.054">
+  <properties/>
+  <testcase name="firstMethodToCreateClient()" classname="ReaderTest" time="0.054"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
