@@ -1,14 +1,14 @@
-public class HoldingType {
+public class HoldingType implements Client {
     private final String name;
     private final int inn;
     private final String clientType;
     private final boolean isSanctioned;
 
-    public HoldingType(String name, int inn, String clientType, boolean isSanctioned) {
-        this.name = name;
-        this.inn = inn;
-        this.clientType = clientType;
-        this.isSanctioned = isSanctioned;
+    public HoldingType(String[] args) {
+        this.name = args[0];
+        this.inn = Integer.parseInt(args[1]);
+        this.clientType = args[2];
+        this.isSanctioned = Boolean.parseBoolean(args[3]);
     }
 
     public String getName() {

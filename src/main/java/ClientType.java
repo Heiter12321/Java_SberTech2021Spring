@@ -1,19 +1,19 @@
 enum ClientType {
     INDIVIDUAL{
-        public Object createClient(String name, int inn, String clientType, boolean isSanctioned) {
-            return new IndividualType(name, inn,clientType, isSanctioned);
+        public Client createClient(String[] args) {
+            return new IndividualType(args);
         }
     },
     LEGAL_ENTITY{
-        public Object createClient(String name, int inn, String clientType, boolean isSanctioned) {
-            return new LegalEntityType(name, inn,clientType, isSanctioned);
+        public Client createClient(String[] args) {
+            return new LegalEntityType(args);
         }
     },
     HOLDING{
-        public Object createClient(String name, int inn, String clientType, boolean isSanctioned) {
-            return new HoldingType(name, inn,clientType, isSanctioned);
+        public Client createClient(String[] args) {
+            return new HoldingType(args);
         }
     };
 
-    public abstract Object createClient(String name, int inn, String clientType, boolean isSanctioned);
+    public abstract Client createClient(String[] args);
 }
