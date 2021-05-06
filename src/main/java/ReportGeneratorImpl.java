@@ -1,40 +1,55 @@
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class ReportGeneratorImpl<T> implements ReportGenerator<T> {
+    private final Class<?> clazz;
+
+    public ReportGeneratorImpl (Class<?> clazz) {
+        this.clazz = clazz;
+    }
 
     @Override
     public ReportImpl generate(List<T> entities) throws IllegalAccessException {
-        var excel = new StringBuilder();
-        Class<?> clazz = entities.get(0).getClass();
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Main page");
+        Iterator<Row> rowIterator = sheet.iterator();
+
         Field[] fields = clazz.getDeclaredFields();
-        boolean flag = true;
-        String[][] strings = new String[entities.size() + 1][fields.length];
-        int i = 0;
-        for (Field field : fields) {
-            strings[0][i] = field.getName();
-            ++i;
-        }
-        i = 1;
-        int j = 0;
-        for (T elem : entities) {
-            for (Field field : fields) {
-                field.setAccessible(true);
-                strings[i][j] = field.get(elem).toString();
-                ++j;
+
+        Row row = rowIterator.next();
+        Iterator <Cell> cellIterator = row.cellIterator();
+        if (clazz.isAnnotationPresent(ReportImpl.RenameFields.class)) {
+            Annotation[] names = clazz.getAnnotations();
+            for (Annotation name : names) {
+                Cell cell = cellIterator.next();
+                cell.setCellValue(name.toString());
             }
-            ++i;
-            j = 0;
+        } else {
+            for (Field value : fields) {
+                Cell cell = cellIterator.next();
+                cell.setCellValue(value.getName());
+            }
         }
 
-        for (String[] strings1 : strings) {
-            for (String str : strings1) {
-                System.out.print(str + " ");
+        for (int i = 1; i < entities.size() + 1; ++i) {
+            row = rowIterator.next();
+            cellIterator = row.cellIterator();
+            for (int j = 0; j < fields.length; ++j) {
+                Cell cell = cellIterator.next();
+                fields[j].setAccessible(true);
+                cell.setCellValue(fields[j].get(entities.get(i - 1)).toString());
             }
-            System.out.println("\n");
         }
 
-        return new ReportImpl(strings);
+        return new ReportImpl(workbook);
     }
 }

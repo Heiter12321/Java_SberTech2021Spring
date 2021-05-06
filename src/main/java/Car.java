@@ -1,5 +1,3 @@
-import java.util.Comparator;
-
 public class Car implements Garage {
     private final int carId;
     private final String brand;

@@ -1,23 +1,23 @@
+import org.apache.poi.ss.usermodel.Workbook;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
 
 public class ReportImpl implements Report{
-    public String[][] getStrings() {
-        return strings;
-    }
+    public final Workbook workbook;
 
-    public final String[][] strings;
-
-    public ReportImpl(String[][] strings) {
-        this.strings = strings;
+    public ReportImpl(Workbook workbook) {
+        this.workbook = workbook;
     }
 
     @Override
     public byte[] asBytes() throws IOException {
         Exporter exporter = new Exporter();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        exporter.exportToExcelFormat(strings).write(baos);
+        exporter.exportToExcelFormat(workbook).write(baos);
         return baos.toByteArray();
     }
 
@@ -26,7 +26,8 @@ public class ReportImpl implements Report{
         os.write(asBytes());
     }
 
-    public void renameFields(String[] strs) {
-        System.arraycopy(strs, 0, strings[0], 0, strs.length);
+    @Target(value= ElementType.TYPE)
+    public @interface RenameFields {
+        String[] names();
     }
 }
