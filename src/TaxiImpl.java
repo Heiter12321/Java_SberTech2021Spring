@@ -9,31 +9,38 @@ public class TaxiImpl implements Taxi {
     @Override
     public void run() {
         while (true) {
-            if (order == null) {
-                synchronized (this) {
-                    try {
-                        System.out.println(Thread.currentThread().getName() + ": Заказов нет, прилягу поспать");
-                        this.wait();
-                    } catch (InterruptedException ignored) {}
-                }
+            synchronized (this) {
+                sleepUntilThereIsNoOrder();
+
+                doOrder();
+
+                System.out.println(Thread.currentThread().getName() + ": Бужу диспетчера");
             }
-
-            System.out.println(Thread.currentThread().getName() + ": Начинаю выполнять заказ");
-
-            try {
-                Thread.sleep(order.time);
-            } catch (InterruptedException ignored) {}
-
-            order = null;
-            System.out.println(Thread.currentThread().getName() + ": Заказ выполнен");
-            System.out.println(Thread.currentThread().getName() + ": Бужу диспетчера");
-
             synchronized (dispatcher) {
                 dispatcher.notifyAvailable(this);
-                dispatcher.notify();
+                dispatcher.notifyAll();
             }
         }
+    }
 
+    public void sleepUntilThereIsNoOrder() {
+        try {
+            while (order == null) {
+                System.out.println(Thread.currentThread().getName() + ": Заказов нет, прилягу поспать");
+                this.wait();
+            }
+        } catch (InterruptedException ignored) {}
+    }
+
+    public void doOrder() {
+        System.out.println(Thread.currentThread().getName() + ": Начинаю выполнять заказ");
+
+        try {
+            Thread.sleep(order.time);
+        } catch (InterruptedException ignored) {}
+
+        order = null;
+        System.out.println(Thread.currentThread().getName() + ": Заказ выполнен");
     }
 
     @Override

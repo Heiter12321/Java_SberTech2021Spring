@@ -1,43 +1,40 @@
-import java.util.HashSet;
+import java.util.LinkedList;
 
 public class DispatcherImpl implements Dispatcher {
-    private final HashSet<Taxi> taxisSet;
+    private final LinkedList<Taxi> taxisQueue;
 
     public DispatcherImpl() {
-        this.taxisSet = new HashSet<>();
+        this.taxisQueue = new LinkedList<>();
         System.out.println("Диспетчер создан. Мой поток: " + Thread.currentThread().toString());
     }
 
     public synchronized void addTaxi(Taxi taxi) {
-        taxisSet.add(taxi);
+        taxisQueue.add(taxi);
         System.out.println("Добавил такси");
     }
 
     @Override
     public synchronized void notifyAvailable(Taxi taxi) {
-        taxisSet.add(taxi);
+        taxisQueue.add(taxi);
     }
 
     @Override
     public void run() {
         while (true) {
-            if (!taxisSet.isEmpty()) {
-                int index = (int) (Math.random() * taxisSet.size());
-                Taxi taxi = (Taxi) taxisSet.toArray()[index];
-
-                synchronized (taxisSet.toArray()[index]) {
-                    taxi.placeOrder(new Order());
-                    taxisSet.remove(taxi);
-                    taxi.notify();
-                }
-            } else {
-                try {
-                    synchronized (this) {
+            try {
+                synchronized (this) {
+                    if (!taxisQueue.isEmpty()) {
+                        Taxi taxi = taxisQueue.poll();
+                        synchronized (taxi) {
+                            taxi.placeOrder(new Order());
+                            taxi.notifyAll();
+                        }
+                    } else {
                         System.out.println(Thread.currentThread().getName() + ": Пока свободных таксистов нет, прилягу поспать");
                         this.wait();
                     }
-                } catch (InterruptedException ignored) {}
-            }
+                }
+            } catch (InterruptedException ignored) {}
         }
     }
 }
