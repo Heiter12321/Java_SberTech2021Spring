@@ -27,16 +27,13 @@ public class ReportGeneratorImpl<T> implements ReportGenerator<T> {
 
         Row row = rowIterator.next();
         Iterator <Cell> cellIterator = row.cellIterator();
-        if (clazz.isAnnotationPresent(ReportImpl.RenameFields.class)) {
-            Annotation[] names = clazz.getAnnotations();
-            for (Annotation name : names) {
-                Cell cell = cellIterator.next();
-                cell.setCellValue(name.toString());
-            }
-        } else {
-            for (Field value : fields) {
-                Cell cell = cellIterator.next();
-                cell.setCellValue(value.getName());
+
+        for (Field f : fields) {
+            Cell cell = cellIterator.next();
+            if (f.isAnnotationPresent(ReportImpl.RenameFields.class)) {
+                cell.setCellValue(f.getAnnotation(ReportImpl.RenameFields.class).value());
+            } else {
+                cell.setCellValue(f.getName());
             }
         }
 

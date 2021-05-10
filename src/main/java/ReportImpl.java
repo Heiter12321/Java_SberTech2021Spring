@@ -26,8 +26,8 @@ public class ReportImpl implements Report{
         os.write(asBytes());
     }
 
-    @Target(value= ElementType.TYPE)
+    @Target(value=ElementType.FIELD)
     public @interface RenameFields {
-        String[] names();
+        String value();
     }
 }
