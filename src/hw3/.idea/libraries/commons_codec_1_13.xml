@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="commons-codec-1.13">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Загрузки/commons-codec-1.13.jar!/" />
+      <root url="jar://$USER_HOME$/Загрузки/commons-collections4-4.4.jar!/" />
+      <root url="jar://$USER_HOME$/Загрузки/poi-4.1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

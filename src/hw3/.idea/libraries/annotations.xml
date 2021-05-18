@@ -1,0 +1,40 @@
+<component name="libraryTable">
+  <library name="annotations">
+    <CLASSES>
+      <root url="file://$USER_HOME$/Загрузки/chart/annotations" />
+      <root url="file://$USER_HOME$/Загрузки/chart/axis" />
+      <root url="file://$USER_HOME$/Загрузки/chart/block" />
+      <root url="file://$USER_HOME$/Загрузки/chart/category" />
+      <root url="file://$USER_HOME$/Загрузки/chart/date" />
+      <root url="file://$USER_HOME$/Загрузки/chart/editor" />
+      <root url="file://$USER_HOME$/Загрузки/chart/encoders" />
+      <root url="file://$USER_HOME$/Загрузки/chart/entity" />
+      <root url="file://$USER_HOME$/Загрузки/chart/event" />
+      <root url="file://$USER_HOME$/Загрузки/chart/function" />
+      <root url="file://$USER_HOME$/Загрузки/chart/gantt" />
+      <root url="file://$USER_HOME$/Загрузки/chart/general" />
+      <root url="file://$USER_HOME$/Загрузки/chart/imagemap" />
+      <root url="file://$USER_HOME$/Загрузки/chart/io" />
+      <root url="file://$USER_HOME$/Загрузки/chart/jdbc" />
+      <root url="file://$USER_HOME$/Загрузки/chart/json" />
+      <root url="file://$USER_HOME$/Загрузки/chart/labels" />
+      <root url="file://$USER_HOME$/Загрузки/chart/needle" />
+      <root url="file://$USER_HOME$/Загрузки/chart/panel" />
+      <root url="file://$USER_HOME$/Загрузки/chart/plot" />
+      <root url="file://$USER_HOME$/Загрузки/chart/renderer" />
+      <root url="file://$USER_HOME$/Загрузки/chart/resources" />
+      <root url="file://$USER_HOME$/Загрузки/chart/servlet" />
+      <root url="file://$USER_HOME$/Загрузки/chart/statistics" />
+      <root url="file://$USER_HOME$/Загрузки/chart/text" />
+      <root url="file://$USER_HOME$/Загрузки/chart/time" />
+      <root url="file://$USER_HOME$/Загрузки/chart/title" />
+      <root url="file://$USER_HOME$/Загрузки/chart/ui" />
+      <root url="file://$USER_HOME$/Загрузки/chart/urls" />
+      <root url="file://$USER_HOME$/Загрузки/chart/util" />
+      <root url="file://$USER_HOME$/Загрузки/chart/xml" />
+      <root url="file://$USER_HOME$/Загрузки/chart/xy" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
