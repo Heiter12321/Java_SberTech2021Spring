@@ -1,7 +1,6 @@
-Реализовать интерфейс Garage, используя походящие коллекции.
+import java.util.*;
 
 public interface Garage {
-
     Collection<Owner> allCarsUniqueOwners();
 
     /**
@@ -36,6 +35,7 @@ public interface Garage {
 
     /**
      * Complexity should be less than O(n)
+     *
      * @return removed car
      */
     Car removeCar(int carId);
@@ -46,17 +46,3 @@ public interface Garage {
     void addNewCar(Car car, Owner owner);
 }
 
-public class Car {
-    private final int carId;
-    private final String brand;
-    private final String modelName;
-    private final int maxVelocity;
-    private final int power;
-    private final int ownerId;
-}
-
-public class Owner {
-    private final String name;
-    private final String lastName;
-    private final int age;
-}
